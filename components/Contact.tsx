@@ -3,8 +3,11 @@
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter, Instagram } from 'lucide-react'
 import { useState } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
+import emailjs from 'emailjs-com'
 
 export default function Contact() {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,33 +20,49 @@ export default function Contact() {
     e.preventDefault()
     setIsSubmitting(true)
     setIsButtonClicked(true)
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    setIsSubmitting(false)
-    alert('Message sent successfully!')
-    setFormData({ name: '', email: '', message: '' })
-    setIsButtonClicked(false)
+
+    try {
+      await emailjs.send(
+        'service_zvxmj3g',
+        'template_71uktt7',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+        },
+        'bovoRFebRN_z37OhR'
+      )
+      alert(t('contact.success'))
+      setFormData({ name: '', email: '', message: '' })
+    } catch (error) {
+      console.error('EmailJS Error:', error)
+      alert('Failed to send message. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+      setIsButtonClicked(false)
+    }
   }
 
   const contactInfo = [
     {
       icon: Mail,
-      label: 'Email',
+      label: t('contact.email'),
       value: 'alfiraa710@gmail.com',
       href: 'mailto:alfiraa710@gmail.com',
       color: 'from-neon-pink to-rose-500',
     },
     {
       icon: Phone,
-      label: 'WhatsApp',
+      label: t('contact.whatsapp'),
       value: '+62-838-9916-6268',
       href: 'https://wa.me/6283899166268',
       color: 'from-baby-blue to-sky-500',
     },
     {
       icon: MapPin,
-      label: 'Location',
+      label: t('contact.location'),
       value: 'Bogor, West Java, Indonesia',
-      href: '#',
+      href: 'https://www.google.com/maps/search/?api=1&query=Jl.+Muara+No.+116,+Sindangrasa,+Bogor+Timur,+Kota+Bogor,+Jawa+Barat,+Indonesia,+16145',
       color: 'from-neon-pink to-rose-500',
     },
   ]
@@ -183,11 +202,14 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-black mb-4 text-white">
-            Get In <span className="text-baby-blue">Touch</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-baby-blue text-sm font-medium border border-white/10 mb-4">
+            <Mail size={14} />
+            {t('contact.info')}
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black mb-4 text-white" dangerouslySetInnerHTML={{ __html: t('contact.title') }}>
           </h2>
           <p className="text-base text-gray-400 max-w-2xl text-center mx-auto">
-            Let's create something amazing together
+            {t('contact.subtitle')}
           </p>
         </motion.div>
 
@@ -200,14 +222,12 @@ export default function Contact() {
             transition={{ duration: 0.8 }}
             className="space-y-6"
           >
-            <h3 className="text-xl font-bold text-white mb-6">Contact Information</h3>
-            
             {contactInfo.map((info) => (
               <motion.a
                 key={info.label}
                 href={info.href}
                 whileHover={{ x: 5 }}
-                className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/10 hover:border-white/20 transition-all duration-300"
+                className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/10 transition-all duration-300"
               >
                 <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center flex-shrink-0">
                   <info.icon size={24} className="text-white" />
@@ -230,7 +250,7 @@ export default function Contact() {
             <form onSubmit={handleSubmit} className="bg-white/5 rounded-2xl p-6 space-y-5 border border-white/10">
               <div>
                 <label htmlFor="name" className="block text-sm font-bold text-white mb-3">
-                  Your Name
+                  {t('contact.name')}
                 </label>
                 <input
                   type="text"
@@ -244,7 +264,7 @@ export default function Contact() {
               </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-bold text-white mb-2">
-                  Your Email
+                  {t('contact.emailLabel')}
                 </label>
                 <input
                   type="email"
@@ -258,7 +278,7 @@ export default function Contact() {
               </div>
               <div>
                 <label htmlFor="message" className="block text-sm font-bold text-white mb-2">
-                  Your Message
+                  {t('contact.message')}
                 </label>
                 <textarea
                   id="message"
@@ -279,10 +299,10 @@ export default function Contact() {
                 className="w-full px-8 py-4 rounded-full font-black shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 bg-baby-blue text-black"
               >
                 {isSubmitting ? (
-                  'Sending...'
+                  t('contact.sending')
                 ) : (
                   <>
-                    Send Message
+                    {t('contact.send')}
                     <Send size={18} />
                   </>
                 )}

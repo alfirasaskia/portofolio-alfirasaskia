@@ -1,28 +1,40 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Briefcase, GraduationCap, MapPin, Calendar, Building2, Sparkles } from 'lucide-react'
+import { Briefcase, GraduationCap, MapPin, Calendar, Building2, Sparkles, ArrowUpRight } from 'lucide-react'
+import { useLanguage } from '../contexts/LanguageContext'
+import { useState } from 'react'
 
 export default function Experience() {
+  const { t } = useLanguage()
+  const [showGallery, setShowGallery] = useState(false)
+
+  const pklPhotos = [
+    '/images/pkl1.jpg',
+    '/images/pkl2.jpg',
+    '/images/pkl3.jpg',
+    '/images/pkl4.jpg',
+  ]
+
   const experiences = [
     {
       type: 'education',
-      title: 'Software & Game Development (PPLG)',
-      company: 'SMK Negeri 4 Kota Bogor',
-      location: 'Bogor, Indonesia',
-      period: '2023 — 2026',
-      description: 'Studied web development (Frontend & Backend), algorithms, and application development using modern technologies.',
-      skills: ['HTML/CSS', 'JavaScript', 'PHP', 'Laravel'],
+      title: t('experience.eduTitle'),
+      company: t('experience.eduSchool'),
+      location: t('experience.eduLocation'),
+      period: t('experience.eduPeriod'),
+      description: t('experience.eduDescription'),
+      skills: [t('experience.eduSkill1'), t('experience.eduSkill2'), t('experience.eduSkill3'), t('experience.eduSkill4')],
       color: '#7DD3FC',
     },
     {
       type: 'work',
-      title: 'Intern — Research & Regional Innovation Division',
-      company: 'Bapperida Kota Bogor',
-      location: 'Bogor, Indonesia',
-      period: 'Jan 2026 — Apr 2026',
-      description: 'Developed the Digital Archive Information System, managed administrative data, and coordinated with government teams.',
-      skills: ['Laravel', 'Tailwind', 'Administration'],
+      title: t('experience.workTitle'),
+      company: t('experience.workCompany'),
+      location: t('experience.workLocation'),
+      period: t('experience.workPeriod'),
+      description: t('experience.workDescription'),
+      skills: [t('experience.workSkill1'), t('experience.workSkill2'), t('experience.workSkill3'), t('experience.workSkill4')],
       color: '#F0097A',
     },
   ];
@@ -98,21 +110,20 @@ export default function Experience() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-baby-blue text-sm font-medium border border-white/10 mb-4">
             <Sparkles size={14} />
-            My Journey
+            {t('experience.badge')}
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-            My <span className="text-neon-pink">Experience</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white" dangerouslySetInnerHTML={{ __html: t('experience.title') }}>
           </h2>
           <p className="text-sm text-gray-400 max-w-xl mx-auto">
-            Learning, growing, and building along the way
+            {t('experience.subtitle')}
           </p>
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
           <div className="relative">
-            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-baby-blue via-neon-pink to-transparent z-10"></div>
+            <div className="absolute left-4 md:left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-baby-blue via-neon-pink to-transparent z-10"></div>
 
-            <div className="ml-20 grid grid-cols-1 gap-6">
+            <div className="ml-12 md:ml-20 grid grid-cols-1 gap-6">
               {experiences.map((exp, index) => (
                 <motion.div
                   key={exp.title}
@@ -122,11 +133,11 @@ export default function Experience() {
                   transition={{ duration: 0.6, delay: index * 0.2 }}
                   className="relative"
                 >
-                  <div className="absolute -left-14 top-6 w-4 h-4 rounded-full border-2 border-white z-30" style={{ backgroundColor: exp.color, borderColor: exp.color }}>
+                  <div className="absolute -left-8 md:-left-14 top-6 w-4 h-4 rounded-full border-2 border-white z-30" style={{ backgroundColor: exp.color, borderColor: exp.color }}>
                     <div className="absolute inset-0 rounded-full animate-ping" style={{ backgroundColor: exp.color }} />
                   </div>
 
-                  <div className={`bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-2xl p-5 hover:border-white/20 transition-all duration-500 hover:shadow-lg group`}>
+                  <div className={`bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-2xl p-5 hover:border-white/20 transition-all duration-500 hover:shadow-lg group relative`}>
                     <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium mb-4" style={{
                       backgroundColor: `${exp.color}15`,
                       color: exp.color,
@@ -135,12 +146,12 @@ export default function Experience() {
                       {exp.type === 'work' ? (
                         <>
                           <Briefcase size={14} />
-                          Internship
+                          {t('experience.internship')}
                         </>
                       ) : (
                         <>
                           <GraduationCap size={14} />
-                          Education
+                          {t('experience.education')}
                         </>
                       )}
                     </div>
@@ -176,12 +187,63 @@ export default function Experience() {
                         </span>
                       ))}
                     </div>
+
+                    {exp.type === 'work' && (
+                      <motion.button
+                        onClick={() => setShowGallery(true)}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="absolute bottom-5 right-5 w-8 h-8 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-colors"
+                      >
+                        <ArrowUpRight size={16} className="text-white" />
+                      </motion.button>
+                    )}
                   </div>
                 </motion.div>
             ))}
           </div>
         </div>
         </div>
+
+        {/* PKL Photos Modal */}
+        {showGallery && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/90 z-50 flex items-start justify-center p-4 pt-24"
+            onClick={() => setShowGallery(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative max-w-4xl w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setShowGallery(false)}
+                className="absolute top-0 right-0 w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 hover:text-neon-pink transition-colors z-10"
+              >
+                ✕
+              </button>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-xl mx-auto mt-12">
+                {pklPhotos.map((photo, index) => (
+                  <div key={index} className="aspect-square bg-white/10 rounded-xl overflow-hidden max-w-[200px] mx-auto">
+                    <img
+                      src={photo}
+                      alt={`PKL Photo ${index + 1}`}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23333"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" fill="%23666" font-size="12"%3EPhoto not found%3C/text%3E%3C/svg%3E'
+                      }}
+                    />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -192,7 +254,7 @@ export default function Experience() {
         >
           <div className="inline-flex items-center gap-3 bg-gradient-to-r from-baby-blue/10 via-white/5 to-neon-pink/10 border border-white/10 rounded-xl px-6 py-3">
             <span className="text-baby-blue text-xs">✦</span>
-            <span className="text-white/70 text-xs">Eager to take on new challenges and opportunities</span>
+            <span className="text-white/70 text-xs">{t('experience.cta')}</span>
             <span className="text-neon-pink text-xs">✦</span>
           </div>
         </motion.div>

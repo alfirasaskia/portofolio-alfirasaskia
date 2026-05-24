@@ -105,7 +105,75 @@ export default function Fullstack() {
 
         {/* Skills Categories */}
         <div className="max-w-5xl mx-auto space-y-12">
-          {/* Development - Full Width */}
+          {/* Row 1: Design & Content + Tools & More */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Design & Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                Design & Content
+                <span className="flex-grow h-px bg-gradient-to-r from-white/20 to-transparent"></span>
+              </h3>
+              <div className="flex gap-3">
+                {skills['Design & Content'].map((skill, skillIndex) => (
+                  <div key={skill.name} style={{ width: '160px', flexShrink: 0 }}>
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: skillIndex * 0.1 }}
+                      whileHover={{ y: -4 }}
+                      className="bg-white/10 border border-white/20 rounded-xl px-2 py-3 hover:border-white/40 transition-all duration-300 relative group flex items-center gap-2 cursor-pointer"
+                    >
+                      <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl`} />
+                      <div className="relative z-10 flex items-center gap-2">
+                        <span className="text-lg flex-shrink-0">{skill.emoji}</span>
+                        <span className="text-xs font-bold text-white leading-tight">{skill.name}</span>
+                      </div>
+                    </motion.div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Tools & More */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                Tools & More
+                <span className="flex-grow h-px bg-gradient-to-r from-white/20 to-transparent"></span>
+              </h3>
+              <div className="grid grid-cols-3 gap-2">
+                {skills['Tools & More'].map((skill, skillIndex) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, delay: skillIndex * 0.1 }}
+                    whileHover={{ y: -4 }}
+                    className="bg-white/10 border border-white/20 rounded-xl px-2 py-3 hover:border-white/40 transition-all duration-300 relative group flex items-center gap-2 cursor-pointer"
+                  >
+                    <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl`} />
+                    <div className="relative z-10 flex items-center gap-2">
+                      <span className="text-lg flex-shrink-0">{skill.emoji}</span>
+                      <span className="text-xs font-bold text-white leading-tight">{skill.name}</span>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Row 2: Development */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -125,50 +193,12 @@ export default function Fullstack() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: skillIndex * 0.1 }}
                   whileHover={{ y: -4 }}
-                  className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 hover:border-white/40 transition-all duration-300 relative group flex items-center gap-3"
+                  className="bg-white/10 border border-white/20 rounded-xl px-2 py-3 hover:border-white/40 transition-all duration-300 relative group flex items-center gap-2 cursor-pointer"
                 >
                   <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl`} />
-                  
-                  <div className="relative z-10 flex items-center gap-3">
-                    <div className={`text-2xl filter drop-shadow-lg`}>
-                      {skill.emoji}
-                    </div>
-                    <span className="text-sm font-bold text-white">{skill.name}</span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          {/* Design & Tools - Combined */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-              Design & Tools
-              <span className="flex-grow h-px bg-gradient-to-r from-white/20 to-transparent"></span>
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-              {[...skills['Design & Content'], ...skills['Tools & More']].map((skill, skillIndex) => (
-                <motion.div
-                  key={skill.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: skillIndex * 0.1 }}
-                  whileHover={{ y: -4 }}
-                  className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 hover:border-white/40 transition-all duration-300 relative group flex items-center gap-3"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-r ${skill.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-xl`} />
-                  
-                  <div className="relative z-10 flex items-center gap-3">
-                    <div className={`text-2xl filter drop-shadow-lg`}>
-                      {skill.emoji}
-                    </div>
-                    <span className="text-sm font-bold text-white">{skill.name}</span>
+                  <div className="relative z-10 flex items-center gap-2">
+                    <span className="text-lg flex-shrink-0">{skill.emoji}</span>
+                    <span className="text-xs font-bold text-white leading-tight">{skill.name}</span>
                   </div>
                 </motion.div>
               ))}
@@ -184,8 +214,8 @@ export default function Fullstack() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-16 max-w-4xl mx-auto text-center"
         >
-          <h3 className="text-sm font-medium text-gray-400 mb-6">Also familiar with</h3>
-          <div className="flex flex-wrap gap-3 justify-center">
+          <h3 className="text-xs font-medium text-gray-400 mb-4">Also familiar with</h3>
+          <div className="flex flex-wrap gap-2 justify-center">
             {['Data Entry', 'Administration'].map((item, index) => (
               <motion.span
                 key={item}
@@ -194,7 +224,7 @@ export default function Fullstack() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
                 whileHover={{ scale: 1.05 }}
-                className="px-4 py-2 rounded-full bg-white/10 border border-white/20 text-sm font-bold text-gray-300 hover:text-white hover:border-white/40 transition-all duration-300"
+                className="px-3 py-1 rounded-full bg-white/10 border border-white/20 text-xs font-bold text-gray-300 hover:text-white hover:border-white/40 transition-all duration-300 cursor-pointer"
               >
                 {item}
               </motion.span>

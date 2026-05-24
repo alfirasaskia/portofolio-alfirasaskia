@@ -3,26 +3,30 @@
 import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import { ExternalLink, Github, ArrowUpRight, Star, Sparkles } from 'lucide-react'
 import { useState } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState('All')
+  const { t } = useLanguage()
+  const [activeFilter, setActiveFilter] = useState('all')
   const [selectedProject, setSelectedProject] = useState<any | null>(null)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [carouselIndexes, setCarouselIndexes] = useState<Record<string, number>>({})
   const [lightboxImages, setLightboxImages] = useState<string[] | null>(null)
 
-  const filters = ['All', 'Full Stack']
+  const filters = [
+    { key: 'all', label: t('projects.filter.all') },
+    { key: 'fullstack', label: t('projects.filter.fullstack') },
+  ]
 
   const projects = [
     {
-      title: 'Digital Archive Information System',
-      description:
-        'A live digital archive system for Bapperida Kota Bogor. Manages document archiving, automatic retention, and structured document disposal.',
+      title: t('projects.archive.title'),
+      description: t('projects.archive.description'),
       category: 'Full Stack',
       year: '2026',
       color: 'from-neon-pink to-rose-500',
-      tags: ['Laravel', 'Tailwind CSS', 'PHP', 'MySQL'],
+      tags: [t('projects.archive.tag1'), t('projects.archive.tag2'), t('projects.archive.tag3'), t('projects.archive.tag4')],
       icon: ExternalLink,
       featured: true,
       images: [
@@ -32,13 +36,12 @@ export default function Projects() {
       liveUrl: 'https://sikearsipan.emdns.biz.id/',
     },
     {
-      title: 'Bogor Innovation Award',
-      description:
-        'UI redesign and feature development for the Bogor Innovation Award website.',
+      title: t('projects.award.title'),
+      description: t('projects.award.description'),
       category: 'Full Stack',
       year: '2025',
       color: 'from-baby-blue to-sky-500',
-      tags: ['Laravel', 'Tailwind CSS', 'PHP', 'MySQL'],
+      tags: [t('projects.award.tag1'), t('projects.award.tag2'), t('projects.award.tag3'), t('projects.award.tag4')],
       icon: Github,
       featured: true,
       images: [
@@ -47,13 +50,12 @@ export default function Projects() {
       ],
     },
     {
-      title: 'SMK Gallery',
-      description:
-        'A school gallery website to showcase activities, achievements, and documentation.',
+      title: t('projects.gallery.title'),
+      description: t('projects.gallery.description'),
       category: 'Full Stack',
       year: '2025',
       color: 'from-[#ff4fa3] to-[#ff4fa3]',
-      tags: ['Laravel', 'Tailwind CSS', 'PHP', 'MySQL'],
+      tags: [t('projects.gallery.tag1'), t('projects.gallery.tag2'), t('projects.gallery.tag3'), t('projects.gallery.tag4')],
       icon: ExternalLink,
       featured: true,
       images: [
@@ -62,13 +64,12 @@ export default function Projects() {
       ],
     },
     {
-      title: 'Student Attendance System',
-      description:
-        'A web-based attendance management app for recording and reporting student presence efficiently.',
+      title: t('projects.attendance.title'),
+      description: t('projects.attendance.description'),
       category: 'Full Stack',
       year: '2024',
       color: 'from-neon-pink to-rose-500',
-      tags: ['PHP', 'MySQL', 'HTML', 'CSS'],
+      tags: [t('projects.attendance.tag1'), t('projects.attendance.tag2'), t('projects.attendance.tag3'), t('projects.attendance.tag4')],
       icon: Github,
       featured: false,
       images: [
@@ -77,26 +78,25 @@ export default function Projects() {
       ],
     },
     {
-      title: 'Portfolio Website',
-      description:
-        'A personal portfolio website showcasing projects, skills, and experience.',
+      title: t('projects.business.title'),
+      description: t('projects.business.description'),
       category: 'Full Stack',
-      year: '2024',
-      color: 'from-baby-blue to-sky-500',
-      tags: ['React', 'Tailwind CSS', 'Framer Motion', 'Next.js'],
+      year: '2025',
+      color: 'from-neon-pink to-rose-500',
+      tags: [t('projects.business.tag1'), t('projects.business.tag2'), t('projects.business.tag3'), t('projects.business.tag4')],
       icon: ExternalLink,
       featured: false,
       images: [
-        '/images/Screenshot (2152).png',
-        '/images/Screenshot (2153).png',
+        '/images/iPhone-11-PRO-MAX-www.instagram.com (1).png',
+        '/images/WhatsApp Image 2026-05-20 at 20.46.34.jpeg',
       ],
     },
   ]
 
   const filteredProjects =
-    activeFilter === 'All'
+    activeFilter === 'all'
       ? projects
-      : projects.filter((p) => p.category === activeFilter)
+      : projects.filter((p) => p.category === 'Full Stack')
 
   return (
     <section
@@ -115,15 +115,14 @@ export default function Projects() {
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-baby-blue/30 text-baby-blue text-sm font-bold mb-6">
               <Sparkles size={16} />
-              Selected Works
+              {t('projects.badge')}
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-black mb-4 text-white">
-              My <span className="text-baby-blue">Projects</span>
+            <h2 className="text-4xl md:text-5xl font-black mb-4 text-white" dangerouslySetInnerHTML={{ __html: t('projects.title') }}>
             </h2>
 
             <p className="text-base text-gray-400">
-              Work that speaks for itself.
+              {t('projects.subtitle')}
             </p>
           </div>
 
@@ -131,15 +130,15 @@ export default function Projects() {
           <div className="flex gap-3 md:mt-8">
             {filters.map((filter) => (
               <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
+                key={filter.key}
+                onClick={() => setActiveFilter(filter.key)}
                 className={`px-5 py-2.5 rounded-2xl text-sm font-bold transition-all ${
-                  activeFilter === filter
+                  activeFilter === filter.key
                     ? 'bg-pink-500 text-black'
                     : 'border border-white/10 text-gray-300'
                 }`}
               >
-                {filter}
+                {filter.label}
               </button>
             ))}
           </div>
@@ -354,7 +353,7 @@ export default function Projects() {
               animate={{ scale: 1 }}
               exit={{ scale: 0.9 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-5xl w-full"
+              className="relative max-w-xs w-full"
             >
               <button
                 onClick={() => setSelectedImage(null)}
@@ -366,7 +365,7 @@ export default function Projects() {
               <img
                 src={selectedImage}
                 alt="Preview"
-                className="w-full rounded-lg"
+                className="w-full h-auto max-h-[200px] object-contain rounded-lg"
               />
 
               {lightboxImages && lightboxImages.length > 1 && (

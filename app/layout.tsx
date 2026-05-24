@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
 import 'aos/dist/aos.css'
+import { LanguageProvider } from '../contexts/LanguageContext'
 
 const poppins = Poppins({
   weight: ['300', '400', '500', '600', '700', '800'],
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={poppins.className}>
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   )

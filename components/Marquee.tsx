@@ -1,13 +1,15 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function Marquee() {
-  const text = "AVAILABLE FOR WORK ✦ OPEN TO COLLABORATE ✦ FRONTEND DEVELOPER ✦ UI/UX DESIGN ✦ CREATIVE WEBSITE ✦ "
+  const { t } = useLanguage()
+  const text = t('footer.marquee') + " ✦ "
   const repeatedText = text.repeat(4)
 
   return (
-    <div className="relative w-full py-4 bg-[#7dd3fc]/10 overflow-hidden">
+    <div className="relative w-full py-4 bg-[#7DD3FC] overflow-hidden">
       {/* Decorative Circles */}
       <div className="absolute top-2 left-10 w-2 h-2 rounded-full bg-baby-blue/40" />
       <div className="absolute top-2 right-10 w-2 h-2 rounded-full bg-neon-pink/40" />
@@ -27,10 +29,10 @@ export default function Marquee() {
           }}
           className="flex whitespace-nowrap group-hover:[animation-play-state:paused]"
         >
-          <span className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-[#ff4fa3]">
+          <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-black">
             {repeatedText}
           </span>
-          <span className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-[#ff4fa3]">
+          <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-black">
             {repeatedText}
           </span>
         </motion.div>

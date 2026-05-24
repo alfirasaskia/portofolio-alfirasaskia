@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion'
 import { Code2, Palette, Zap, Users, Coffee, Heart, Star, Rocket, Target, Sparkles, Award } from 'lucide-react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function About() {
+  const { t } = useLanguage()
   const techStack = [
     { name: 'Laravel', icon: Code2, color: 'from-baby-blue to-sky-500' },
     { name: 'PHP', icon: Zap, color: 'from-neon-pink to-rose-500' },
@@ -12,9 +14,10 @@ export default function About() {
   ]
 
   const funFacts = [
-    { icon: Coffee, text: 'Runs on matcha & good vibes', emoji: '�' },
-    { icon: Star, text: 'Early bird — productive before sunrise', emoji: '�' },
-    { icon: Heart, text: 'Works best with music on repeat', emoji: '🎵' },
+    { icon: Coffee, text: t('about.fact1'), emoji: '🍵' },
+    { icon: Star, text: t('about.fact2'), emoji: '🌅' },
+    { icon: Heart, text: t('about.fact3'), emoji: '🎵' },
+    { icon: Zap, text: t('about.fact4'), emoji: '⚡' },
   ]
 
   return (
@@ -90,7 +93,7 @@ export default function About() {
         />
       </div>
 
-      <div className="container mx-auto relative z-10">
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -101,18 +104,17 @@ export default function About() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-baby-blue text-sm font-medium border border-white/10 mb-4">
             <Sparkles size={14} />
-            Get to know me
+            {t('about.badge')}
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-            About <span className="text-neon-pink">Me</span>
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white" dangerouslySetInnerHTML={{ __html: t('about.title') }}>
           </h2>
           <p className="text-base text-gray-400 max-w-xl mx-auto">
-            Crafting digital experiences with passion and precision
+            {t('about.subtitle')}
           </p>
         </motion.div>
 
         {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Large Bio Card */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -127,22 +129,22 @@ export default function About() {
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center">
                   <Rocket size={24} className="text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">My Journey</h3>
+                <h3 className="text-2xl font-bold text-white">{t('about.journey')}</h3>
               </div>
               <p className="text-gray-400 leading-relaxed mb-4 flex-grow">
-                Hi! I'm Alfira Saskia Ramadani, a graduate of Software and Game Development (PPLG) from SMK Negeri 4 Kota Bogor with a strong interest in web development, administration, and data entry.
+                {t('about.bio1')}
               </p>
               <p className="text-gray-400 leading-relaxed mb-4">
-                I enjoy learning new things, working in teams, and constantly improving my skills while giving my best in every opportunity.
+                {t('about.bio2')}
               </p>
               <p className="text-gray-400 leading-relaxed mb-4">
-                I have internship experience at Bapperida Kota Bogor where I contributed to building the Digital Archive Information System and handled administrative tasks.
+                {t('about.bio3')}
               </p>
               <p className="text-gray-400 leading-relaxed mb-4">
-                I was also actively involved in ROHIS as a member of the Publication & Documentation Division for two years.
+                {t('about.bio4')}
               </p>
               <p className="text-gray-400 leading-relaxed mb-6">
-                I am currently open to work and looking for opportunities to contribute and grow in a professional environment.
+                {t('about.bio5')}
               </p>
             </div>
           </motion.div>
@@ -159,7 +161,7 @@ export default function About() {
             <div className="relative z-10">
               <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <Star size={24} className="text-white" />
-                Fun Facts
+                {t('about.funFacts')}
               </h3>
               <div className="space-y-4">
                 {funFacts.map((fact, index) => (

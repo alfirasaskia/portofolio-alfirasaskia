@@ -2,8 +2,10 @@
 
 import { motion } from 'framer-motion'
 import { Heart, Sparkles, Star } from 'lucide-react'
+import { useLanguage } from '../contexts/LanguageContext'
 
 export default function LoadingScreen() {
+  const { t } = useLanguage()
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0a0a1a]">
       <div className="relative">
@@ -110,7 +112,7 @@ export default function LoadingScreen() {
         transition={{ delay: 0.5 }}
         className="absolute bottom-32 text-white text-xl font-light tracking-widest"
       >
-        Loading...
+        {t('loading.text')}
       </motion.p>
     </div>
   )
