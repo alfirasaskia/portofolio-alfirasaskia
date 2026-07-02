@@ -99,6 +99,11 @@ const translations = {
     'projects.business.tag2': 'WhatsApp',
     'projects.business.tag3': 'Business',
     'projects.business.tag4': 'E-commerce',
+    'projects.certificate.title': 'Digital Copywriting — DEA Komdigi (Digital Talent Scholarship)',
+    'projects.certificate.description': 'Learned the fundamentals of digital copywriting, content creation, and effective marketing communication for digital platforms.',
+    'projects.certificate.tag1': 'Copywriting',
+    'projects.certificate.tag2': 'Digital Marketing',
+    'projects.certificate.tag3': 'Certificate',
     
     // Experience
     'experience.badge': 'My Journey',
@@ -239,6 +244,11 @@ const translations = {
     'projects.business.tag2': 'WhatsApp',
     'projects.business.tag3': 'Bisnis',
     'projects.business.tag4': 'E-commerce',
+    'projects.certificate.title': 'Digital Copywriting — DEA Komdigi (Digital Talent Scholarship)',
+    'projects.certificate.description': 'Mempelajari dasar-dasar copywriting digital, teknik penulisan konten pemasaran, serta strategi komunikasi yang efektif untuk media digital.',
+    'projects.certificate.tag1': 'Copywriting',
+    'projects.certificate.tag2': 'Digital Marketing',
+    'projects.certificate.tag3': 'Sertifikat',
     
     // Experience
     'experience.badge': 'Perjalanan Saya',

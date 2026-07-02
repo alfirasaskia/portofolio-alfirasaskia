@@ -91,6 +91,19 @@ export default function Projects() {
         '/images/WhatsApp Image 2026-05-20 at 20.46.34.jpeg',
       ],
     },
+    {
+      title: t('projects.certificate.title'),
+      description: t('projects.certificate.description'),
+      category: 'Full Stack',
+      year: '2025',
+      color: 'from-baby-blue to-sky-500',
+      tags: [t('projects.certificate.tag1'), t('projects.certificate.tag2'), t('projects.certificate.tag3') ],
+      icon: ExternalLink,
+      featured: false,
+      images: [
+        '/images/Screenshot_2-7-2026_115110_.jpeg',
+      ],
+    },
   ]
 
   const filteredProjects =
