@@ -54,8 +54,8 @@ export default function Contact() {
     {
       icon: Phone,
       label: t('contact.whatsapp'),
-      value: '+62-838-9916-6268',
-      href: 'https://wa.me/6283899166268',
+      value: '+62-895-2541-9161',
+      href: 'https://wa.me/6289525419161',
       color: 'from-baby-blue to-sky-500',
     },
     {
