@@ -36,7 +36,7 @@ export default function Footer() {
   const socialLinks = [
     {
       icon: Linkedin,
-      href: 'https://www.linkedin.com/in/alfira-saskia-ramadani-64b02629/',
+      href: 'https://www.linkedin.com/login',
       label: 'LinkedIn',
     },
     {
